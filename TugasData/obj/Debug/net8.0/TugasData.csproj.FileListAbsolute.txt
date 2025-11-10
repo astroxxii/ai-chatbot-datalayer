@@ -1,0 +1,17 @@
+F:\DotNet_Apps\TugasKelompok\TugasData\bin\Debug\net8.0\TugasData.deps.json
+F:\DotNet_Apps\TugasKelompok\TugasData\bin\Debug\net8.0\TugasData.runtimeconfig.json
+F:\DotNet_Apps\TugasKelompok\TugasData\bin\Debug\net8.0\TugasData.dll
+F:\DotNet_Apps\TugasKelompok\TugasData\bin\Debug\net8.0\TugasData.pdb
+F:\DotNet_Apps\TugasKelompok\TugasData\obj\Debug\net8.0\TugasData.csproj.AssemblyReference.cache
+F:\DotNet_Apps\TugasKelompok\TugasData\obj\Debug\net8.0\TugasData.GeneratedMSBuildEditorConfig.editorconfig
+F:\DotNet_Apps\TugasKelompok\TugasData\obj\Debug\net8.0\TugasData.AssemblyInfoInputs.cache
+F:\DotNet_Apps\TugasKelompok\TugasData\obj\Debug\net8.0\TugasData.AssemblyInfo.cs
+F:\DotNet_Apps\TugasKelompok\TugasData\obj\Debug\net8.0\TugasData.csproj.CoreCompileInputs.cache
+F:\DotNet_Apps\TugasKelompok\TugasData\obj\Debug\net8.0\TugasData.dll
+F:\DotNet_Apps\TugasKelompok\TugasData\obj\Debug\net8.0\refint\TugasData.dll
+F:\DotNet_Apps\TugasKelompok\TugasData\obj\Debug\net8.0\TugasData.pdb
+F:\DotNet_Apps\TugasKelompok\TugasData\obj\Debug\net8.0\TugasData.genruntimeconfig.cache
+F:\DotNet_Apps\TugasKelompok\TugasData\obj\Debug\net8.0\ref\TugasData.dll
+F:\DotNet_Apps\TugasKelompok\TugasData\bin\Debug\net8.0\TugasUtils.dll
+F:\DotNet_Apps\TugasKelompok\TugasData\bin\Debug\net8.0\TugasUtils.pdb
+F:\DotNet_Apps\TugasKelompok\TugasData\obj\Debug\net8.0\TugasData.csproj.Up2Date
