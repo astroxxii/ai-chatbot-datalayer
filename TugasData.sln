@@ -1,0 +1,27 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TugasData", "TugasData\TugasData.csproj", "{6E8B26D6-F3B5-474A-97E0-4B8C444C3895}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TugasUtils", "TugasUtils\TugasUtils.csproj", "{E1D06505-B94F-4D75-9D54-197E54F9DC66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E8B26D6-F3B5-474A-97E0-4B8C444C3895}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E8B26D6-F3B5-474A-97E0-4B8C444C3895}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E8B26D6-F3B5-474A-97E0-4B8C444C3895}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E8B26D6-F3B5-474A-97E0-4B8C444C3895}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1D06505-B94F-4D75-9D54-197E54F9DC66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1D06505-B94F-4D75-9D54-197E54F9DC66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1D06505-B94F-4D75-9D54-197E54F9DC66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1D06505-B94F-4D75-9D54-197E54F9DC66}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

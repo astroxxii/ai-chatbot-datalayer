@@ -1,0 +1,40 @@
+## Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## Visual Studio
+.vs/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.sln.docstates
+
+## Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+## JetBrains Rider
+.idea/
+*.sln.iml
+
+## Environment & Secrets
+appsettings.Development.json
+appsettings.Production.json
+appsettings.Local.json
+*.local.json
+secrets.json
+*.p12
+*.pem
+*.key
+google-credentials*.json
+service-account*.json
+
+## OS generated files
+.DS_Store
+Thumbs.db

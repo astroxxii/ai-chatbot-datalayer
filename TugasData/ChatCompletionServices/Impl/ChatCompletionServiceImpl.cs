@@ -1,17 +1,19 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using TugasData.ChatCompletionServices.Model;
 
 namespace TugasData.ChatCompletionServices.Impl
 {
+    /// <summary>
+    /// Implementation of IChatCompletionServices communicating with OpenAI-compatible API.
+    /// </summary>
     public class ChatCompletionServiceImpl : IChatCompletionServices
     {
         private readonly HttpClient _http;
@@ -19,35 +21,49 @@ namespace TugasData.ChatCompletionServices.Impl
 
         public ChatCompletionServiceImpl(HttpClient http, IConfiguration config)
         {
-            _http = http;
-            _config = config;
+            _http = http ?? throw new ArgumentNullException(nameof(http));
+            _config = config ?? throw new ArgumentNullException(nameof(config));
         }
 
-        public async Task<string> getChatCompletionAsync(ChatCompletionsRequestService d, CancellationToken ct)
+        /// <summary>
+        /// Sends messages to OpenAI API and extracts the text response.
+        /// </summary>
+        public async Task<string> GetChatCompletionAsync(ChatCompletionsRequestService request, CancellationToken ct = default)
         {
+            if (request == null || request.ChatCompletionRequestService == null || request.ChatCompletionRequestService.Count == 0)
+            {
+                throw new ArgumentException("Chat request or messages cannot be empty.", nameof(request));
+            }
+
             var apiKey = _config["OpenAI:ApiKey"];
-            var apiUrl = _config["OpenAI:ApiUrl"];  // Mengambil URL dari konfigurasi
-            var model = _config["OpenAI:Model"];
+            var apiUrl = _config["OpenAI:ApiUrl"] ?? "https://api.openai.com/v1/chat/completions";
+            var model = _config["OpenAI:Model"] ?? "gpt-4o-mini";
+
+            if (string.IsNullOrWhiteSpace(apiKey))
+            {
+                throw new InvalidOperationException("OpenAI API key is missing. Please set 'OpenAI:ApiKey' in configuration.");
+            }
 
             var requestBody = new
             {
                 model = model,
-                messages = d.ChatCompletionRequestService.Select(m => new
+                messages = request.ChatCompletionRequestService.Select(m => new
                 {
                     role = m.role,
                     content = m.content
                 }).ToList()
             };
 
-            // Serialisasi JSON
             var json = JsonSerializer.Serialize(requestBody);
-            using var content = new StringContent(json, Encoding.UTF8, "application/json");
+            using var httpRequest = new HttpRequestMessage(HttpMethod.Post, apiUrl)
+            {
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
 
-            // Set header authorization
-            _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+            // Set per-request Authorization header for thread safety
+            httpRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
 
-            // Kirim request ke OpenAI menggunakan URL dari konfigurasi
-            using var response = await _http.PostAsync($"{apiUrl}", content, ct);
+            using var response = await _http.SendAsync(httpRequest, ct);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -55,21 +71,28 @@ namespace TugasData.ChatCompletionServices.Impl
                 throw new HttpRequestException($"Gagal memanggil OpenAI API: {response.StatusCode}\n{errorBody}");
             }
 
-            // Ambil hasil string dari response
             var result = await response.Content.ReadAsStringAsync(ct);
 
-            // Parse JSON langsung untuk mengambil content
-            using (JsonDocument doc = JsonDocument.Parse(result))
+            using var doc = JsonDocument.Parse(result);
+            if (doc.RootElement.TryGetProperty("choices", out var choices) && choices.GetArrayLength() > 0)
             {
-                // Ambil value dari content
-                var contentResponse = doc.RootElement
-                    .GetProperty("choices")[0]
-                    .GetProperty("message")
-                    .GetProperty("content")
-                    .GetString();
-
-                return contentResponse ?? "No content found"; // Mengembalikan content atau pesan default jika tidak ada
+                var firstChoice = choices[0];
+                if (firstChoice.TryGetProperty("message", out var message) &&
+                    message.TryGetProperty("content", out var contentElement))
+                {
+                    return contentElement.GetString() ?? "No content found";
+                }
             }
+
+            return "No content found";
+        }
+
+        /// <summary>
+        /// Backward-compatible alias for GetChatCompletionAsync.
+        /// </summary>
+        public Task<string> getChatCompletionAsync(ChatCompletionsRequestService d, CancellationToken ct)
+        {
+            return GetChatCompletionAsync(d, ct);
         }
     }
 }

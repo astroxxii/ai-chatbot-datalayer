@@ -1,40 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace TugasData.ChatCompletionServices.Model
 {
+    /// <summary>
+    /// Wrapper for chat completion request containing messages history.
+    /// </summary>
     public class ChatCompletionsRequestService
     {
-        public List<ChatCompletionRequestService> ChatCompletionRequestService { get; set; }
+        [JsonPropertyName("messages")]
+        public List<ChatCompletionRequestService> ChatCompletionRequestService { get; set; } = new();
+
+        /// <summary>
+        /// Convenience alias following C# conventions.
+        /// </summary>
+        [JsonIgnore]
+        public List<ChatCompletionRequestService> Messages
+        {
+            get => ChatCompletionRequestService;
+            set => ChatCompletionRequestService = value;
+        }
+
+        public ChatCompletionsRequestService() { }
+
+        public ChatCompletionsRequestService(List<ChatCompletionRequestService> messages)
+        {
+            ChatCompletionRequestService = messages;
+        }
     }
 
+    /// <summary>
+    /// Individual chat message item (role and content).
+    /// </summary>
     public class ChatCompletionRequestService
     {
-        public string role { get; set; }
-        public string content { get; set; }
-    }
+        [JsonPropertyName("role")]
+        public string role { get; set; } = string.Empty;
 
-    public class ChatCompletionResponseService
-    {
-        public string role { get; set; }
-        public string content { get; set; }
-    }
+        [JsonPropertyName("content")]
+        public string content { get; set; } = string.Empty;
 
-    public class Choice
-    {
-        public Message Message { get; set; }
-    }
+        /// <summary>
+        /// Convenience alias following C# conventions.
+        /// </summary>
+        [JsonIgnore]
+        public string Role
+        {
+            get => role;
+            set => role = value;
+        }
 
-    public class Message
-    {
-        public string Content { get; set; }
-    }
+        /// <summary>
+        /// Convenience alias following C# conventions.
+        /// </summary>
+        [JsonIgnore]
+        public string Content
+        {
+            get => content;
+            set => content = value;
+        }
 
-    public class OpenAIResponse
-    {
-        public Choice[] Choices { get; set; }
+        public ChatCompletionRequestService() { }
+
+        public ChatCompletionRequestService(string role, string content)
+        {
+            this.role = role;
+            this.content = content;
+        }
     }
 }
