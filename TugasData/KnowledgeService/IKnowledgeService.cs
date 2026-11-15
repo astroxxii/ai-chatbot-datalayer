@@ -1,4 +1,4 @@
-﻿using System.Threading;
+using System.Threading;
 using System.Threading.Tasks;
 using TugasData.KnowledgeService.Model;
 using TugasUtils.HttpUtils.Model;

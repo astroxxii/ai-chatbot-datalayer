@@ -63,3 +63,4 @@ namespace TugasUtils.HttpUtils.Model
         }
     }
 }
+
