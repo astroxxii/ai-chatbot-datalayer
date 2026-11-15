@@ -277,22 +277,6 @@ if (response.Success)
 }
 ```
 
----
-
-## 🚀 Peningkatan & Best Practices yang Diterapkan
-
-| Area | Sebelum Perbaikan | Sesudah Perbaikan |
-|---|---|---|
-| **Git Hygiene** | Folder `bin/` dan `obj/` ikut ter-commit ke repo (berisi DLL, cache, path lokal `C:\Users\...`) | `.gitignore` komprehensif ditambahkan, cache build dibersihkan secara permanen dari riwayat Git |
-| **Dependensi Proyek** | `..\TugasUtils\TugasUtils.csproj` hilang (repo tidak bisa di-build saat di-clone) | Dibuatkan modul `TugasUtils` mandiri dengan wrapper `ApiResponse<T>` yang lengkap |
-| **Solution File** | Tidak ada file `.sln` | Tersedia `TugasData.sln` untuk kemudahan membuka proyek di VS / Rider / VS Code |
-| **Thread Safety** | Header `Authorization` diubah langsung pada `_http.DefaultRequestHeaders` (rawan race condition) | Menggunakan `HttpRequestMessage` independen per panggilan HTTP |
-| **C# Naming Standard** | Penamaan metode camelCase (`getChatCompletionAsync`) | Menggunakan standar C# PascalCase (`GetChatCompletionAsync`) dengan alias backwards-compatible |
-| **Dokumentasi** | `README.md` kosong hanya berisi `# test` | Dokumentasi lengkap dengan diagram alur arsitektur, panduan konfigurasi, dan contoh kode |
-| **Lisensi & Atribut** | Tidak ada lisensi, tanpa penanganan line ending | Dilengkapi `LICENSE` (MIT) dan `.gitattributes` |
-
----
-
 ## 📄 Lisensi
 
 Didistribusikan di bawah Lisensi **MIT**. Lihat berkas [LICENSE](LICENSE) untuk informasi lebih lanjut.
